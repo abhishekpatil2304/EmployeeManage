@@ -1,0 +1,24 @@
+<h1>Welcome to the Index Page</h1>
+<p>This is the static index page. You need to be signed in to view this content.</p>
+<% if user_signed_in? && current_user.role.name == 'admin' %>
+    <% if can? :create, User %>
+        <%= link_to "Create New User", new_user_path %>
+        <%= User.all.count %>
+    <% end %>
+<% end %>
+<%#= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete } %>
+<% if user_signed_in? && current_user.role.name == 'admin' %>
+  <!-- Content or links to be displayed for the superadmin user -->
+  <%= link_to "Create New User", new_user_path %>
+  <!-- Add more content or links as needed -->
+<% else %>
+  <% if user_signed_in? %>
+    <!-- Content or links to be displayed for other signed-in users -->
+    <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+    <!-- Add more content or links as needed -->
+  <% else %>
+    <!-- Content or links to be displayed for non-logged-in users -->
+    <%= link_to "Sign In", new_user_session_path %>
+    <!-- Add more content or links as needed -->
+  <% end %>
+<% end %>
